@@ -1,5 +1,6 @@
 package com.fzamiche.inventory_service.inventory_service.service;
 
+import com.fzamiche.inventory_service.inventory_service.Exception.ResourceNotFoundException;
 import com.fzamiche.inventory_service.inventory_service.model.Item;
 import com.fzamiche.inventory_service.inventory_service.repository.ItemRepository;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,10 @@ public class ItemService {
 
     public Item createItem(Item item) {
         return itemRepository.save(item);
+    }
+
+    public Item getItemById(Long id) {
+        return itemRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Item not found - id : " + id));
     }
 }
