@@ -44,6 +44,11 @@
 			<artifactId>postgresql</artifactId>
 			<version>42.7.7</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>9.0.0.Beta3</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
