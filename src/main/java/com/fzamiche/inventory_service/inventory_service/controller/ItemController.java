@@ -26,7 +26,7 @@ public class ItemController {
     }
 
     @PostMapping
-    public ResponseEntity<Item> createItem(@Valid @RequestBody Item item){
+    public ResponseEntity<Item> createItem(@Valid @RequestBody Item item) {
         return ResponseEntity.ok(itemService.createItem(item));
     }
 
@@ -38,6 +38,12 @@ public class ItemController {
     @PutMapping("/{id}")
     public ResponseEntity<Long> updateItemById(@PathVariable Long id, @Valid @RequestBody ItemRequest itemRequest) {
         return ResponseEntity.ok(itemService.updateItemById(id, itemRequest));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteItemById(@PathVariable Long id) {
+        itemService.deleteItemById(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
