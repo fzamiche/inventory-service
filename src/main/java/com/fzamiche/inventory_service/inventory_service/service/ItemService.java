@@ -45,4 +45,11 @@ public class ItemService {
 
         return itemRepository.save(existingItem).getId();
     }
+
+    public void deleteItemById(Long id) {
+        if (!itemRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Item not found - id : " + id);
+        }
+        itemRepository.deleteById(id);
+    }
 }
