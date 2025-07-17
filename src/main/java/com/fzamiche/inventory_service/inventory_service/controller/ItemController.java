@@ -1,5 +1,6 @@
 package com.fzamiche.inventory_service.inventory_service.controller;
 
+import com.fzamiche.inventory_service.inventory_service.dto.ItemRequest;
 import com.fzamiche.inventory_service.inventory_service.model.Item;
 import com.fzamiche.inventory_service.inventory_service.service.ItemService;
 import jakarta.validation.Valid;
@@ -32,6 +33,11 @@ public class ItemController {
     @GetMapping("/{id}")
     public ResponseEntity<Item> getItemById(@PathVariable Long id) {
         return ResponseEntity.ok(itemService.getItemById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Long> updateItemById(@PathVariable Long id, @Valid @RequestBody ItemRequest itemRequest) {
+        return ResponseEntity.ok(itemService.updateItemById(id, itemRequest));
     }
 
 }
