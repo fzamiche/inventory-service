@@ -19,10 +19,10 @@ public class InventoryServiceApplication {
         return args ->
                 itemRepository.save(
                         Item.builder()
-                                .sku("Sku")
-                                .name("Name")
+                                .sku("ABC123")
+                                .name("Wireless Mouse")
                                 .quantity(120)
-                                .location("Location")
+                                .location("Warehouse A")
                                 .build()
                 );
     }
