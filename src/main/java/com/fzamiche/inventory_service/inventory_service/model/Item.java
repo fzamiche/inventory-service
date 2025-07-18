@@ -2,8 +2,8 @@ package com.fzamiche.inventory_service.inventory_service.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import org.hibernate.annotations.NotFound;
 
 @Entity
 @Getter
@@ -11,7 +11,6 @@ import org.hibernate.annotations.NotFound;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Data
 public class Item {
 
     @Id
@@ -20,7 +19,7 @@ public class Item {
     @Column(unique = true, nullable = false)
     private String sku;
     @Column(nullable = false)
-    @NotFound
+    @NotBlank
     private String name;
     @Column(nullable = false)
     @Min(0)

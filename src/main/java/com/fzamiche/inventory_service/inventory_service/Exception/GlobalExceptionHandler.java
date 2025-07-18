@@ -14,19 +14,19 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handelIllegalArgumentException(IllegalArgumentException e){
+    public String handleIllegalArgumentException(IllegalArgumentException e){
         return e.getMessage();
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handelValidationException(ConstraintViolationException e){
+    public String handleValidationException(ConstraintViolationException e){
         return "Validation error : " + e.getMessage();
     }
 
     @ExceptionHandler(org.springframework.web.bind.MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handelValidationException(org.springframework.web.bind.MethodArgumentNotValidException e){
+    public String handleValidationException(org.springframework.web.bind.MethodArgumentNotValidException e){
         return e.getBindingResult()
                 .getAllErrors()
                 .stream()
@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handelNotFoundException(ResourceNotFoundException e){
+    public String handleNotFoundException(ResourceNotFoundException e){
         return e.getMessage();
     }
 }
