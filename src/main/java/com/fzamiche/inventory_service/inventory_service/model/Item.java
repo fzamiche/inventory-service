@@ -1,9 +1,8 @@
 package com.fzamiche.inventory_service.inventory_service.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Entity
@@ -17,8 +16,13 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true, nullable = false)
     private String sku;
+    @Column(nullable = false)
+    @NotBlank
     private String name;
+    @Column(nullable = false)
+    @Min(0)
     private int quantity;
     private String location;
 

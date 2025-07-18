@@ -1,10 +1,11 @@
 package com.fzamiche.inventory_service.inventory_service.controller;
 
+import com.fzamiche.inventory_service.inventory_service.dto.ItemRequest;
 import com.fzamiche.inventory_service.inventory_service.model.Item;
 import com.fzamiche.inventory_service.inventory_service.service.ItemService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,8 +21,29 @@ public class ItemController {
     }
 
     @GetMapping
-    public List<Item> getAllItems() {
-        return itemService.getAllItems();
+    public ResponseEntity<List<Item>> getAllItems() {
+        return ResponseEntity.ok(itemService.getAllItems());
+    }
+
+    @PostMapping
+    public ResponseEntity<Item> createItem(@Valid @RequestBody Item item) {
+        return ResponseEntity.ok(itemService.createItem(item));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Item> getItemById(@PathVariable Long id) {
+        return ResponseEntity.ok(itemService.getItemById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Long> updateItemById(@PathVariable Long id, @Valid @RequestBody ItemRequest itemRequest) {
+        return ResponseEntity.ok(itemService.updateItemById(id, itemRequest));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteItemById(@PathVariable Long id) {
+        itemService.deleteItemById(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
