@@ -26,6 +26,12 @@ public class ItemService {
     }
 
     public Item createItem(Item item) {
+        String categoryName = item.getCategory().getName();
+        Category existing = categoryRepository.findByName(categoryName)
+                .orElseGet(() -> categoryRepository.save(
+                        Category.builder().name(categoryName).build()
+                ));
+        item.setCategory(existing);
         return itemRepository.save(item);
     }
 
@@ -33,7 +39,7 @@ public class ItemService {
         return itemRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Item not found - id : " + id));
     }
 
-    public Long updateItemById(Long id, ItemRequest updatedItem) {
+    public Item updateItemById(Long id, ItemRequest updatedItem) {
         Item existingItem = itemRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Item not found - id : " + id));
 
         if ((!existingItem.getSku().equals(updatedItem.sku()))
@@ -48,7 +54,7 @@ public class ItemService {
         existingItem.setLocation(updatedItem.location());
         existingItem.setCategory(updatedItem.category());
 
-        return itemRepository.save(existingItem).getId();
+        return itemRepository.save(existingItem);
     }
 
     public void deleteItemById(Long id) {
