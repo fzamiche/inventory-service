@@ -25,5 +25,8 @@ public class Item {
     @Min(0)
     private int quantity;
     private String location;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
 }

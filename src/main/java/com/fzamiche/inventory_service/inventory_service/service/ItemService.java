@@ -2,7 +2,9 @@ package com.fzamiche.inventory_service.inventory_service.service;
 
 import com.fzamiche.inventory_service.inventory_service.Exception.ResourceNotFoundException;
 import com.fzamiche.inventory_service.inventory_service.dto.ItemRequest;
+import com.fzamiche.inventory_service.inventory_service.model.Category;
 import com.fzamiche.inventory_service.inventory_service.model.Item;
+import com.fzamiche.inventory_service.inventory_service.repository.CategoryRepository;
 import com.fzamiche.inventory_service.inventory_service.repository.ItemRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +14,11 @@ import java.util.List;
 public class ItemService {
 
     private final ItemRepository itemRepository;
+    private final CategoryRepository categoryRepository;
 
-    public ItemService(ItemRepository itemRepository) {
+    public ItemService(ItemRepository itemRepository, CategoryRepository categoryRepository) {
         this.itemRepository = itemRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     public List<Item> getAllItems() {
@@ -42,6 +46,7 @@ public class ItemService {
         existingItem.setName(updatedItem.name());
         existingItem.setQuantity(updatedItem.quantity());
         existingItem.setLocation(updatedItem.location());
+        existingItem.setCategory(updatedItem.category());
 
         return itemRepository.save(existingItem).getId();
     }
@@ -51,5 +56,17 @@ public class ItemService {
             throw new ResourceNotFoundException("Item not found - id : " + id);
         }
         itemRepository.deleteById(id);
+    }
+
+    public List<Item> getAllItemsByCategoryName(String categoryName) {
+        return itemRepository.findByCategoryName(categoryName);
+    }
+
+    public List<Item> getAllItemsByQuantityLessThan(int quantity) {
+        return itemRepository.findByQuantityLessThan(quantity);
+    }
+
+    public Double getAverageQuantityPerCategory(String categoryName) {
+        return itemRepository.findAverageQuantityPerCategory(categoryName);
     }
 }
